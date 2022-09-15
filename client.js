@@ -5,7 +5,8 @@ import PSI from '@openmined/psi.js'
 import GpxParser from "gpxparser";
 //import http from "http";
 import fetch from 'node-fetch';
-import FormData from "form-data";
+import {FormData, Blob} from "formdata-node";
+
 
 const GEOHASH_LENGTH = 7
 
@@ -72,7 +73,7 @@ async function checkPoints() {
   let form = new FormData();
   let buf = Buffer.from(serializedClientRequest)
 
-  form.append("data", buf, 'the_data');
+  form.append("data", new Blob([buf]), 'the_data');
 
   fetch('http://localhost:3000/match', { method: 'POST', body: form })
     .then(function (res) {
